@@ -88,4 +88,4 @@ POST   /api/admin/sync-games
 
 ## License
 
-Private / hobby project.
+Apache-2.0 license
