@@ -3,8 +3,11 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 import { GameCard } from '../components/GameCard';
 import { WeekNavigator } from '../components/WeekNavigator';
 import { useWeekGames } from '../hooks/useWeekGames';
+import { useAuth } from '../context/AuthContext';
 
 export function DashboardPage() {
+  const { user } = useAuth();
+  const isAdmin = user?.isAdmin ?? false;
   const {
     week,
     season,
@@ -50,13 +53,15 @@ export function DashboardPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <StatCard label="Games This Week" value={String(totalGames)} />
-        <StatCard label="Tips Submitted" value={`${tippedCount}/${totalGames}`} />
-        <StatCard label="Points This Week" value={String(weekPoints)} />
-      </div>
+      {!isAdmin && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <StatCard label="Games This Week" value={String(totalGames)} />
+          <StatCard label="Tips Submitted" value={`${tippedCount}/${totalGames}`} />
+          <StatCard label="Points This Week" value={String(weekPoints)} />
+        </div>
+      )}
 
-      {tippedCount < totalGames && totalGames > 0 && (
+      {!isAdmin && tippedCount < totalGames && totalGames > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-amber-800 text-sm">
           You have {totalGames - tippedCount} game{totalGames - tippedCount !== 1 ? 's' : ''} left
           to tip.{' '}
@@ -75,16 +80,16 @@ export function DashboardPage() {
         ) : (
           <>
             <div className="grid gap-4 sm:grid-cols-2">
-              {games.slice(0, 4).map((game) => (
+              {(isAdmin ? games : games.slice(0, 4)).map((game) => (
                 <GameCard
                   key={game.id}
                   game={game}
-                  tip={tips.find((t) => t.gameId === game.id)}
+                  tip={isAdmin ? undefined : tips.find((t) => t.gameId === game.id)}
                   onPick={() => {}}
                 />
               ))}
             </div>
-            {games.length > 4 && (
+            {!isAdmin && games.length > 4 && (
               <Link to={`/tips?week=${week}`} className="inline-block mt-4 text-nfl-navy font-medium hover:underline">
                 View all {games.length} games →
               </Link>

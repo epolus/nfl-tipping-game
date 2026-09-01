@@ -20,6 +20,15 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
   return <>{children}</>;
 }
 
+function PlayerOnlyRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+
+  if (loading) return <LoadingSpinner />;
+  if (user?.isAdmin) return <Navigate to="/" replace />;
+
+  return <>{children}</>;
+}
+
 function AppRoutes() {
   return (
     <Routes>
@@ -32,8 +41,22 @@ function AppRoutes() {
         }
       >
         <Route path="/" element={<DashboardPage />} />
-        <Route path="/tips" element={<TippingPage />} />
-        <Route path="/history" element={<HistoryPage />} />
+        <Route
+          path="/tips"
+          element={
+            <PlayerOnlyRoute>
+              <TippingPage />
+            </PlayerOnlyRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <PlayerOnlyRoute>
+              <HistoryPage />
+            </PlayerOnlyRoute>
+          }
+        />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/standings" element={<StandingsPage />} />
         <Route

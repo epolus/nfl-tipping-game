@@ -11,7 +11,7 @@ router.get('/', requireAuth, async (req, res: Response) => {
       new Date().getFullYear();
 
   const users = await prisma.user.findMany({
-    where: { isActive: true },
+    where: { isActive: true, isAdmin: false },
     select: { id: true, displayName: true, email: true },
   });
 

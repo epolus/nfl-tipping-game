@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
 import { prisma } from '../lib/prisma';
-import { requireAuth, AuthRequest } from '../middleware/auth';
+import { requireAuth, requirePlayer, AuthRequest } from '../middleware/auth';
 
 const router = Router();
 
@@ -44,7 +44,7 @@ router.get('/me', requireAuth, async (req: AuthRequest, res: Response) => {
   res.json({ tips: enriched });
 });
 
-router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
+router.post('/', requirePlayer, async (req: AuthRequest, res: Response) => {
   const userId = req.user!.userId;
   const { gameId, pickedTeamId } = req.body;
 
@@ -88,7 +88,7 @@ router.post('/', requireAuth, async (req: AuthRequest, res: Response) => {
   res.status(201).json({ tip });
 });
 
-router.put('/:id', requireAuth, async (req: AuthRequest, res: Response) => {
+router.put('/:id', requirePlayer, async (req: AuthRequest, res: Response) => {
   const userId = req.user!.userId;
   const { id } = req.params;
   const { pickedTeamId } = req.body;

@@ -20,12 +20,16 @@ export function Layout() {
             <NavLink to="/" end className={navLinkClass}>
               Dashboard
             </NavLink>
-            <NavLink to="/tips" className={navLinkClass}>
-              Tips
-            </NavLink>
-            <NavLink to="/history" className={navLinkClass}>
-              History
-            </NavLink>
+            {!user?.isAdmin && (
+              <>
+                <NavLink to="/tips" className={navLinkClass}>
+                  Tips
+                </NavLink>
+                <NavLink to="/history" className={navLinkClass}>
+                  History
+                </NavLink>
+              </>
+            )}
             <NavLink to="/standings" className={navLinkClass}>
               Standings
             </NavLink>
