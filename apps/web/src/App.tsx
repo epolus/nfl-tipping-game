@@ -7,6 +7,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { TippingPage } from './pages/TippingPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { LeaderboardPage } from './pages/LeaderboardPage';
+import { StandingsPage } from './pages/StandingsPage';
 import { AdminPage } from './pages/AdminPage';
 
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
@@ -34,6 +35,7 @@ function AppRoutes() {
         <Route path="/tips" element={<TippingPage />} />
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/standings" element={<StandingsPage />} />
         <Route
           path="/admin"
           element={

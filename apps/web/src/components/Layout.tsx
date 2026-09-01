@@ -12,7 +12,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold text-nfl-navy">🏈 NFL Tips</span>
           </div>
@@ -25,6 +25,9 @@ export function Layout() {
             </NavLink>
             <NavLink to="/history" className={navLinkClass}>
               History
+            </NavLink>
+            <NavLink to="/standings" className={navLinkClass}>
+              Standings
             </NavLink>
             <NavLink to="/leaderboard" className={navLinkClass}>
               Leaderboard
@@ -46,7 +49,7 @@ export function Layout() {
           </div>
         </div>
       </header>
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
         <Outlet />
       </main>
     </div>

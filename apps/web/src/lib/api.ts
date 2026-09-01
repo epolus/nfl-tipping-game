@@ -82,6 +82,24 @@ export interface LeaderboardEntry {
   lastWeekPoints: number;
 }
 
+export interface StandingTeam {
+  abbreviation: string;
+  name: string;
+  logoUrl: string | null;
+  wins: number;
+  losses: number;
+  ties: number;
+  winPercent: string;
+  divisionRecord: string;
+  streak: string;
+}
+
+export interface DivisionStanding {
+  name: string;
+  conference: 'AFC' | 'NFC';
+  teams: StandingTeam[];
+}
+
 export const api = {
   login: (email: string, password: string) =>
     request<{ user: User }>('/api/auth/login', {
@@ -136,6 +154,9 @@ export const api = {
       `/api/leaderboard${params}`
     );
   },
+
+  getStandings: () =>
+    request<{ season: number; divisions: DivisionStanding[] }>('/api/standings'),
 
   getUsers: () => request<{ users: User[] }>('/api/admin/users'),
 
