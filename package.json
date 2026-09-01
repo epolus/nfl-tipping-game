@@ -1,0 +1,12 @@
+{
+  "name": "nfl-tipping-game",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @nfl-tipping/api",
+    "dev:web": "npm run dev -w @nfl-tipping/web",
+    "build": "npm run build -w @nfl-tipping/api && npm run build -w @nfl-tipping/web"
+  }
+}
