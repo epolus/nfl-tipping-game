@@ -82,7 +82,7 @@ function parseEntry(entry: EspnStandingEntry): StandingTeam | null {
 }
 
 async function fetchDivision(group: number): Promise<EspnDivisionStandings> {
-  const url = `https://site.api.espn.com/apis/v2/sports/football/nfl/standings?group=${group}`;
+  const url = `https://site.api.espn.com/apis/v2/sports/football/nfl/standings?group=${group}&seasontype=2`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`ESPN standings error: ${response.status}`);
