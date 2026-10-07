@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Game, Tip, isGameLocked, formatKickoff, timeUntilKickoff } from '../lib/api';
+import { RecapModal } from './RecapModal';
 
 interface GameCardProps {
   game: Game;
@@ -10,6 +12,7 @@ interface GameCardProps {
 export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
   const locked = isGameLocked(game.kickoff);
   const selectedId = tip?.pickedTeamId;
+  const [showRecap, setShowRecap] = useState(false);
 
   const statusBadge = () => {
     switch (game.status) {
@@ -69,28 +72,51 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
     );
   };
 
+  const matchup = `${game.awayTeam.nflAbbreviation} @ ${game.homeTeam.nflAbbreviation}`;
+
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2 flex-wrap">
-        <span className="text-xs text-gray-500">{formatKickoff(game.kickoff)}</span>
-        {statusBadge()}
-      </div>
-      <div className="p-4 space-y-2">
-        <TeamOption team={game.awayTeam} isHome={false} />
-        <div className="text-center text-xs text-gray-400 font-medium">@</div>
-        <TeamOption team={game.homeTeam} isHome={true} />
-      </div>
-      {tip && game.status === 'FINAL' && (
-        <div
-          className={`px-4 py-2 text-sm text-center ${
-            tip.pickedTeamId === game.winnerTeamId
-              ? 'bg-green-50 text-green-700'
-              : 'bg-red-50 text-red-700'
-          }`}
-        >
-          {tip.pickedTeamId === game.winnerTeamId ? '✓ Correct (+1 pt)' : '✗ Incorrect'}
+    <>
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+        <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2 flex-wrap">
+          <span className="text-xs text-gray-500">{formatKickoff(game.kickoff)}</span>
+          {statusBadge()}
         </div>
+        <div className="p-4 space-y-2">
+          <TeamOption team={game.awayTeam} isHome={false} />
+          <div className="text-center text-xs text-gray-400 font-medium">@</div>
+          <TeamOption team={game.homeTeam} isHome={true} />
+        </div>
+        {tip && game.status === 'FINAL' && (
+          <div
+            className={`px-4 py-2 text-sm text-center ${
+              tip.pickedTeamId === game.winnerTeamId
+                ? 'bg-green-50 text-green-700'
+                : 'bg-red-50 text-red-700'
+            }`}
+          >
+            {tip.pickedTeamId === game.winnerTeamId ? '✓ Correct (+1 pt)' : '✗ Incorrect'}
+          </div>
+        )}
+        {game.status === 'FINAL' && (
+          <div className="px-4 py-2 border-t border-gray-100">
+            <button
+              type="button"
+              onClick={() => setShowRecap(true)}
+              className="w-full text-sm font-medium text-nfl-navy hover:bg-nfl-navy/5 rounded-lg py-1.5 transition-colors"
+            >
+              ▶ Watch recap
+            </button>
+          </div>
+        )}
+      </div>
+
+      {showRecap && (
+        <RecapModal
+          gameId={game.id}
+          title={matchup}
+          onClose={() => setShowRecap(false)}
+        />
       )}
-    </div>
+    </>
   );
 }

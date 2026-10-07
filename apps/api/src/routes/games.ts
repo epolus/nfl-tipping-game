@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../middleware/auth';
+import { fetchGameRecap } from '../services/nfl/recap';
 
 const router = Router();
 
@@ -65,6 +66,22 @@ router.get('/', requireAuth, async (req: AuthRequest, res: Response) => {
   });
 
   res.json({ games, week: targetWeek, season: targetSeason });
+});
+
+router.get('/:id/recap', requireAuth, async (req: AuthRequest, res: Response) => {
+  const game = await prisma.game.findUnique({ where: { id: req.params.id } });
+  if (!game) {
+    res.status(404).json({ error: 'Game not found' });
+    return;
+  }
+
+  try {
+    const recap = await fetchGameRecap(game.externalId);
+    res.json({ recap });
+  } catch (err) {
+    console.error('Recap fetch failed:', err);
+    res.status(502).json({ error: 'Failed to fetch game recap' });
+  }
 });
 
 export default router;

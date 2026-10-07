@@ -100,6 +100,23 @@ export interface DivisionStanding {
   teams: StandingTeam[];
 }
 
+export interface GameRecapVideo {
+  id: string;
+  headline: string;
+  description: string | null;
+  thumbnailUrl: string | null;
+  durationSeconds: number | null;
+  videoUrl: string | null;
+  espnUrl: string | null;
+}
+
+export interface GameRecap {
+  externalId: string;
+  headline: string | null;
+  articleUrl: string | null;
+  video: GameRecapVideo | null;
+}
+
 export const api = {
   login: (email: string, password: string) =>
     request<{ user: User }>('/api/auth/login', {
@@ -127,6 +144,9 @@ export const api = {
       `/api/games/weeks${params}`
     );
   },
+
+  getGameRecap: (gameId: string) =>
+    request<{ recap: GameRecap }>(`/api/games/${gameId}/recap`),
 
   getMyTips: (week?: number, season?: number) => {
     const params = new URLSearchParams();
