@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { api, Tip } from '../lib/api';
+import { api, Tip, isGameLocked, formatKickoff } from '../lib/api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
-import { formatKickoff } from '../lib/api';
+import { RecapModal } from '../components/RecapModal';
 
 export function HistoryPage() {
   const [tips, setTips] = useState<Tip[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [recapGame, setRecapGame] = useState<{ id: string; title: string } | null>(null);
 
   useEffect(() => {
     api
@@ -47,36 +48,55 @@ export function HistoryPage() {
                 <span className="text-sm text-gray-500">{weekPoints} pts</span>
               </div>
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100">
-                {weekTips.map((tip) => (
-                  <div key={tip.id} className="px-4 py-3 flex items-center gap-3 flex-wrap">
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium">
-                        {tip.game.awayTeam.nflAbbreviation} @ {tip.game.homeTeam.nflAbbreviation}
+                {weekTips.map((tip) => {
+                  const matchup = `${tip.game.awayTeam.nflAbbreviation} @ ${tip.game.homeTeam.nflAbbreviation}`;
+                  const showRecap = isGameLocked(tip.game.kickoff);
+                  return (
+                    <div key={tip.id} className="px-4 py-3 flex items-center gap-3 flex-wrap">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium">{matchup}</div>
+                        <div className="text-xs text-gray-500">{formatKickoff(tip.game.kickoff)}</div>
                       </div>
-                      <div className="text-xs text-gray-500">{formatKickoff(tip.game.kickoff)}</div>
+                      <div className="text-sm">
+                        Picked: <span className="font-medium">{tip.pickedTeam.nflAbbreviation}</span>
+                      </div>
+                      {tip.game.status === 'FINAL' ? (
+                        <span
+                          className={`text-sm font-medium px-2 py-0.5 rounded ${
+                            tip.isCorrect
+                              ? 'bg-green-100 text-green-700'
+                              : 'bg-red-100 text-red-700'
+                          }`}
+                        >
+                          {tip.isCorrect ? '+1 pt' : 'Miss'}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-gray-400">{tip.game.status}</span>
+                      )}
+                      {showRecap && (
+                        <button
+                          type="button"
+                          onClick={() => setRecapGame({ id: tip.game.id, title: matchup })}
+                          className="text-sm font-medium text-nfl-navy hover:underline"
+                        >
+                          ▶ Recap
+                        </button>
+                      )}
                     </div>
-                    <div className="text-sm">
-                      Picked: <span className="font-medium">{tip.pickedTeam.nflAbbreviation}</span>
-                    </div>
-                    {tip.game.status === 'FINAL' ? (
-                      <span
-                        className={`text-sm font-medium px-2 py-0.5 rounded ${
-                          tip.isCorrect
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
-                        }`}
-                      >
-                        {tip.isCorrect ? '+1 pt' : 'Miss'}
-                      </span>
-                    ) : (
-                      <span className="text-xs text-gray-400">{tip.game.status}</span>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           );
         })
+      )}
+
+      {recapGame && (
+        <RecapModal
+          gameId={recapGame.id}
+          title={recapGame.title}
+          onClose={() => setRecapGame(null)}
+        />
       )}
     </div>
   );

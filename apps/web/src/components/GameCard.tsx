@@ -97,7 +97,7 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
             {tip.pickedTeamId === game.winnerTeamId ? '✓ Correct (+1 pt)' : '✗ Incorrect'}
           </div>
         )}
-        {game.status === 'FINAL' && (
+        {locked && (
           <div className="px-4 py-2 border-t border-gray-100">
             <button
               type="button"
