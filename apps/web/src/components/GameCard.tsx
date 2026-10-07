@@ -104,7 +104,7 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
               onClick={() => setShowRecap(true)}
               className="w-full text-sm font-medium text-nfl-navy hover:bg-nfl-navy/5 rounded-lg py-1.5 transition-colors"
             >
-              ▶ Watch recap
+              ▶ Watch highlights
             </button>
           </div>
         )}

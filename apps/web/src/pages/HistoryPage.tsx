@@ -79,7 +79,7 @@ export function HistoryPage() {
                           onClick={() => setRecapGame({ id: tip.game.id, title: matchup })}
                           className="text-sm font-medium text-nfl-navy hover:underline"
                         >
-                          ▶ Recap
+                          ▶ Highlights
                         </button>
                       )}
                     </div>

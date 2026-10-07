@@ -108,6 +108,7 @@ export interface GameRecapVideo {
   durationSeconds: number | null;
   videoUrl: string | null;
   espnUrl: string | null;
+  coverageType: string | null;
 }
 
 export interface GameRecap {
@@ -115,6 +116,7 @@ export interface GameRecap {
   headline: string | null;
   articleUrl: string | null;
   video: GameRecapVideo | null;
+  plays: GameRecapVideo[];
 }
 
 export const api = {
