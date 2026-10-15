@@ -13,6 +13,7 @@ interface EspnCompetitor {
   score?: string;
   winner?: boolean;
   team?: EspnTeam;
+  records?: Array<{ type?: string; name?: string; summary?: string }>;
 }
 
 interface EspnEvent {
@@ -43,6 +44,16 @@ function mapEspnStatus(event: EspnEvent): GameStatus {
   return GameStatus.SCHEDULED;
 }
 
+function parseOverallRecord(comp: EspnCompetitor | undefined): string | null {
+  const records = comp?.records ?? [];
+  const overall =
+    records.find((r) => r.type === 'total') ??
+    records.find((r) => r.name?.toLowerCase() === 'overall') ??
+    records[0];
+  const summary = overall?.summary?.trim();
+  return summary || null;
+}
+
 function parseCompetitor(comp: EspnCompetitor | undefined) {
   if (!comp?.team?.abbreviation) return null;
   return {
@@ -50,6 +61,7 @@ function parseCompetitor(comp: EspnCompetitor | undefined) {
     name: comp.team.displayName ?? comp.team.abbreviation,
     logoUrl: comp.team.logo ?? null,
     score: comp.score != null ? parseInt(comp.score, 10) : null,
+    record: parseOverallRecord(comp),
     isWinner: comp.winner === true,
     homeAway: comp.homeAway,
   };
@@ -90,6 +102,8 @@ function parseEvent(event: EspnEvent, week: number, season: number): NflGameData
     awayLogoUrl: awayParsed.logoUrl,
     homeScore: homeParsed.score,
     awayScore: awayParsed.score,
+    homeRecord: homeParsed.record,
+    awayRecord: awayParsed.record,
     status,
     winnerAbbreviation,
   };

@@ -53,6 +53,8 @@ export interface Game {
   awayTeamId: string;
   homeScore: number | null;
   awayScore: number | null;
+  homeRecord: string | null;
+  awayRecord: string | null;
   status: 'SCHEDULED' | 'LIVE' | 'FINAL';
   winnerTeamId: string | null;
   homeTeam: Team;

@@ -47,6 +47,8 @@ model Game {
   awayTeamId String
   homeScore  Int?
   awayScore  Int?
+  homeRecord String?
+  awayRecord String?
   status     GameStatus @default(SCHEDULED)
   winnerTeamId String?
 

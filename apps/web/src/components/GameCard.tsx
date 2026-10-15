@@ -33,6 +33,7 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
     const isSelected = selectedId === team.id;
     const isWinner = game.status === 'FINAL' && game.winnerTeamId === team.id;
     const score = isHome ? game.homeScore : game.awayScore;
+    const record = isHome ? game.homeRecord : game.awayRecord;
 
     return (
       <label
@@ -60,7 +61,10 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
         )}
         <div className="flex-1 min-w-0">
           <div className="font-medium truncate">{team.name}</div>
-          <div className="text-xs text-gray-500">{team.nflAbbreviation}</div>
+          <div className="text-xs text-gray-500">
+            {team.nflAbbreviation}
+            {record ? ` · ${record}` : ''}
+          </div>
         </div>
         {score != null && (
           <span className="text-lg font-bold tabular-nums">{score}</span>

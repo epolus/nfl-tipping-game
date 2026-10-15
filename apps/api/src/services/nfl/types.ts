@@ -13,6 +13,8 @@ export interface NflGameData {
   awayLogoUrl: string | null;
   homeScore: number | null;
   awayScore: number | null;
+  homeRecord: string | null;
+  awayRecord: string | null;
   status: GameStatus;
   winnerAbbreviation: string | null;
 }
