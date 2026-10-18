@@ -1,12 +1,14 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-ARG VITE_API_URL=http://localhost:3001
+ARG VITE_API_URL=""
 ENV VITE_API_URL=$VITE_API_URL
 
-COPY package.json package-lock.json* ./
+# Copy full workspace manifests so npm can satisfy the lockfile
+COPY package.json package-lock.json ./
+COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
-RUN npm install --workspace=@nfl-tipping/web
+RUN npm ci
 
 COPY apps/web ./apps/web
 WORKDIR /app/apps/web

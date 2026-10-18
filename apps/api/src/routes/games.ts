@@ -2,6 +2,7 @@ import { Router, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { requireAuth, AuthRequest } from '../middleware/auth';
 import { fetchGameRecap } from '../services/nfl/recap';
+import { routeParam } from '../lib/params';
 
 const router = Router();
 
@@ -69,7 +70,7 @@ router.get('/', requireAuth, async (req: AuthRequest, res: Response) => {
 });
 
 router.get('/:id/recap', requireAuth, async (req: AuthRequest, res: Response) => {
-  const game = await prisma.game.findUnique({ where: { id: req.params.id } });
+  const game = await prisma.game.findUnique({ where: { id: routeParam(req.params.id) } });
   if (!game) {
     res.status(404).json({ error: 'Game not found' });
     return;

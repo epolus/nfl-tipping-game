@@ -4,6 +4,7 @@ import { prisma } from '../lib/prisma';
 import { sanitizeUser } from '../lib/sanitize';
 import { requireAdmin } from '../middleware/auth';
 import { syncNflGames } from '../jobs/syncNflGames';
+import { routeParam } from '../lib/params';
 
 const router = Router();
 
@@ -39,7 +40,7 @@ router.post('/users', async (req, res: Response) => {
 });
 
 router.patch('/users/:id', async (req, res: Response) => {
-  const { id } = req.params;
+  const id = routeParam(req.params.id);
   const { displayName, password, isActive, isAdmin } = req.body;
 
   const user = await prisma.user.findUnique({ where: { id } });

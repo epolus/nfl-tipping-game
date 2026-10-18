@@ -1,19 +1,24 @@
 FROM node:20-alpine AS base
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++ openssl
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+# Copy full workspace manifests so npm can satisfy the lockfile
+COPY package.json package-lock.json ./
 COPY apps/api/package.json ./apps/api/
-RUN npm install --workspace=@nfl-tipping/api
+COPY apps/web/package.json ./apps/web/
+RUN npm ci
 
 COPY apps/api ./apps/api
 WORKDIR /app/apps/api
+ENV DATABASE_URL="postgresql://nfl:nflsecret@db:5432/nfl_tipping?schema=public"
 RUN npx prisma generate && npm run build
 
 FROM node:20-alpine
+RUN apk add --no-cache openssl
 WORKDIR /app
 COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/apps/api ./apps/api
+COPY --from=base /app/package.json ./package.json
 WORKDIR /app/apps/api
 
 EXPOSE 3001

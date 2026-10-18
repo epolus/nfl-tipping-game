@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { requireAuth, requirePlayer, AuthRequest } from '../middleware/auth';
+import { routeParam } from '../lib/params';
 
 const router = Router();
 
@@ -90,7 +91,7 @@ router.post('/', requirePlayer, async (req: AuthRequest, res: Response) => {
 
 router.put('/:id', requirePlayer, async (req: AuthRequest, res: Response) => {
   const userId = req.user!.userId;
-  const { id } = req.params;
+  const id = routeParam(req.params.id);
   const { pickedTeamId } = req.body;
 
   if (!pickedTeamId) {
