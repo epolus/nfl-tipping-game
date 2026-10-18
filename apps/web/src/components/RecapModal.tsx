@@ -76,21 +76,23 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
       role="presentation"
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col dark:bg-gray-900 dark:border dark:border-gray-800"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={`Highlights: ${title}`}
       >
-        <div className="px-4 py-3 border-b border-gray-100 flex items-start justify-between gap-3 shrink-0">
+        <div className="px-4 py-3 border-b border-gray-100 flex items-start justify-between gap-3 shrink-0 dark:border-gray-800">
           <div className="min-w-0">
-            <div className="text-xs text-gray-500 uppercase tracking-wide">Game Highlights</div>
-            <h2 className="font-semibold text-gray-900 truncate">{title}</h2>
+            <div className="text-xs text-gray-500 uppercase tracking-wide dark:text-gray-400">
+              Game Highlights
+            </div>
+            <h2 className="font-semibold text-gray-900 truncate dark:text-gray-100">{title}</h2>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-700 text-xl leading-none px-1"
+            className="text-gray-400 hover:text-gray-700 text-xl leading-none px-1 dark:hover:text-gray-200"
             aria-label="Close"
           >
             ×
@@ -99,7 +101,7 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
 
         <div className="p-4 space-y-4 overflow-y-auto">
           {loading && <LoadingSpinner label="Loading highlights..." />}
-          {error && <div className="text-red-600 text-sm">{error}</div>}
+          {error && <div className="text-red-600 text-sm dark:text-red-400">{error}</div>}
 
           {!loading && !error && recap && (
             <>
@@ -124,12 +126,12 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
                       )}
                     </div>
                     {active.description && active.description !== active.headline && (
-                      <p className="text-sm text-gray-500 mt-1">{active.description}</p>
+                      <p className="text-sm text-gray-500 mt-1 dark:text-gray-400">{active.description}</p>
                     )}
                   </div>
                 </div>
               ) : (
-                <div className="rounded-lg bg-gray-50 border border-gray-100 px-4 py-6 text-center text-sm text-gray-500">
+                <div className="rounded-lg bg-gray-50 border border-gray-100 px-4 py-6 text-center text-sm text-gray-500 dark:bg-gray-800/60 dark:border-gray-800 dark:text-gray-400">
                   No game highlight video is available for this game yet.
                   {!hasHighlights && playlist.length === 0 && (
                     <span className="block mt-1">ESPN may still be publishing clips.</span>
@@ -139,7 +141,7 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
 
               {playlist.length > 1 && (
                 <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide dark:text-gray-400">
                     Plays ({playlist.length})
                   </h3>
                   <div className="space-y-1 max-h-48 overflow-y-auto">
@@ -152,18 +154,18 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
                           onClick={() => setActiveId(clip.id)}
                           className={`w-full flex items-center gap-3 text-left px-3 py-2 rounded-lg transition-colors ${
                             isActive
-                              ? 'bg-nfl-navy/10 text-nfl-navy'
-                              : 'hover:bg-gray-50 text-gray-700'
+                              ? 'bg-nfl-navy/10 text-nfl-navy dark:bg-sky-950/50 dark:text-sky-300'
+                              : 'hover:bg-gray-50 text-gray-700 dark:hover:bg-gray-800 dark:text-gray-200'
                           }`}
                         >
                           {clip.thumbnailUrl ? (
                             <img
                               src={clip.thumbnailUrl}
                               alt=""
-                              className="w-14 h-8 object-cover rounded shrink-0 bg-gray-100"
+                              className="w-14 h-8 object-cover rounded shrink-0 bg-gray-100 dark:bg-gray-800"
                             />
                           ) : (
-                            <div className="w-14 h-8 rounded bg-gray-100 shrink-0" />
+                            <div className="w-14 h-8 rounded bg-gray-100 shrink-0 dark:bg-gray-800" />
                           )}
                           <div className="min-w-0 flex-1">
                             <div className="text-sm font-medium truncate">{clip.headline}</div>
@@ -183,7 +185,9 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
               )}
 
               {recap.headline && (
-                <p className="text-sm text-gray-700 border-t border-gray-100 pt-3">{recap.headline}</p>
+                <p className="text-sm text-gray-700 border-t border-gray-100 pt-3 dark:text-gray-300 dark:border-gray-800">
+                  {recap.headline}
+                </p>
               )}
 
               {recap.articleUrl && (
@@ -191,7 +195,7 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
                   href={recap.articleUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex text-sm font-medium text-nfl-navy hover:underline"
+                  className="inline-flex text-sm font-medium text-nfl-navy hover:underline dark:text-sky-400"
                 >
                   Read full ESPN recap →
                 </a>

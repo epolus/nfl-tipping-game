@@ -22,43 +22,47 @@ export function LeaderboardPage() {
   }, []);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">{error}</div>;
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Leaderboard</h1>
-        {season != null && <p className="text-gray-500 mt-1">{season} Season</p>}
+        {season != null && <p className="text-gray-500 mt-1 dark:text-gray-400">{season} Season</p>}
       </div>
 
       {entries.length === 0 ? (
-        <p className="text-gray-500">No results yet — tips will appear once games finish.</p>
+        <p className="text-gray-500 dark:text-gray-400">
+          No results yet — tips will appear once games finish.
+        </p>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 text-left text-sm text-gray-500">
+              <tr className="bg-gray-50 text-left text-sm text-gray-500 dark:bg-gray-800/60 dark:text-gray-400">
                 <th className="px-4 py-3 font-medium w-12">#</th>
                 <th className="px-4 py-3 font-medium">Player</th>
                 <th className="px-4 py-3 font-medium text-right">Points</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {entries.map((entry) => {
                 const isMe = entry.userId === user?.id;
                 return (
                   <tr
                     key={entry.userId}
-                    className={isMe ? 'bg-nfl-navy/5 font-medium' : ''}
+                    className={isMe ? 'bg-nfl-navy/5 font-medium dark:bg-sky-950/40' : ''}
                   >
-                    <td className="px-4 py-3 text-gray-500">
+                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                       {entry.rank <= 3 ? ['🥇', '🥈', '🥉'][entry.rank - 1] : entry.rank}
                     </td>
                     <td className="px-4 py-3">
                       {entry.displayName}
-                      {isMe && <span className="ml-2 text-xs text-nfl-navy">(you)</span>}
+                      {isMe && (
+                        <span className="ml-2 text-xs text-nfl-navy dark:text-sky-400">(you)</span>
+                      )}
                     </td>
-                    <td className="px-4 py-3 text-right font-bold text-nfl-navy">
+                    <td className="px-4 py-3 text-right font-bold text-nfl-navy dark:text-sky-400">
                       {entry.totalPoints}
                     </td>
                   </tr>

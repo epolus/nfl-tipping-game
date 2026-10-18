@@ -82,20 +82,24 @@ export function AdminPage() {
         <button
           onClick={handleSync}
           disabled={syncing}
-          className="px-4 py-2 bg-nfl-navy text-white rounded-lg text-sm font-medium hover:bg-nfl-navy/90 disabled:opacity-50"
+          className="px-4 py-2 bg-nfl-navy text-white rounded-lg text-sm font-medium hover:bg-nfl-navy/90 disabled:opacity-50 dark:bg-sky-600 dark:hover:bg-sky-500"
         >
           {syncing ? 'Syncing...' : 'Sync NFL Games'}
         </button>
       </div>
 
       {message && (
-        <div className="bg-green-50 text-green-700 text-sm px-4 py-3 rounded-lg">{message}</div>
+        <div className="bg-green-50 text-green-700 text-sm px-4 py-3 rounded-lg dark:bg-green-950/50 dark:text-green-300">
+          {message}
+        </div>
       )}
       {error && (
-        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg">{error}</div>
+        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg dark:bg-red-950/50 dark:text-red-300">
+          {error}
+        </div>
       )}
 
-      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
         <h2 className="text-lg font-semibold mb-4">Create User</h2>
         <form onSubmit={handleCreate} className="grid gap-4 sm:grid-cols-2">
           <input
@@ -104,7 +108,7 @@ export function AdminPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <input
             type="text"
@@ -112,7 +116,7 @@ export function AdminPage() {
             placeholder="Display name"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <input
             type="password"
@@ -120,12 +124,12 @@ export function AdminPage() {
             placeholder="Temporary password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none sm:col-span-2"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none sm:col-span-2 dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <button
             type="submit"
             disabled={creating}
-            className="sm:col-span-2 py-2 bg-nfl-navy text-white rounded-lg font-medium hover:bg-nfl-navy/90 disabled:opacity-50"
+            className="sm:col-span-2 py-2 bg-nfl-navy text-white rounded-lg font-medium hover:bg-nfl-navy/90 disabled:opacity-50 dark:bg-sky-600 dark:hover:bg-sky-500"
           >
             {creating ? 'Creating...' : 'Create User'}
           </button>
@@ -134,32 +138,36 @@ export function AdminPage() {
 
       <section>
         <h2 className="text-lg font-semibold mb-4">Users ({users.length})</h2>
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 text-left text-gray-500">
+              <tr className="bg-gray-50 text-left text-gray-500 dark:bg-gray-800/60 dark:text-gray-400">
                 <th className="px-4 py-3 font-medium">Name</th>
                 <th className="px-4 py-3 font-medium hidden sm:table-cell">Email</th>
                 <th className="px-4 py-3 font-medium">Status</th>
                 <th className="px-4 py-3 font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {users.map((user) => (
                 <tr key={user.id}>
                   <td className="px-4 py-3">
                     {user.displayName}
                     {user.isAdmin && (
-                      <span className="ml-1 text-xs bg-nfl-navy/10 text-nfl-navy px-1.5 py-0.5 rounded">
+                      <span className="ml-1 text-xs bg-nfl-navy/10 text-nfl-navy px-1.5 py-0.5 rounded dark:bg-sky-950/50 dark:text-sky-300">
                         admin
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 hidden sm:table-cell text-gray-500">{user.email}</td>
+                  <td className="px-4 py-3 hidden sm:table-cell text-gray-500 dark:text-gray-400">
+                    {user.email}
+                  </td>
                   <td className="px-4 py-3">
                     <span
                       className={`text-xs px-2 py-0.5 rounded ${
-                        user.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                        user.isActive
+                          ? 'bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300'
+                          : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                       }`}
                     >
                       {user.isActive ? 'Active' : 'Inactive'}
@@ -169,19 +177,19 @@ export function AdminPage() {
                     <div className="flex flex-wrap gap-2">
                       <button
                         onClick={() => handleToggleActive(user)}
-                        className="text-xs text-gray-600 hover:text-nfl-navy underline"
+                        className="text-xs text-gray-600 hover:text-nfl-navy underline dark:text-gray-400 dark:hover:text-sky-400"
                       >
                         {user.isActive ? 'Deactivate' : 'Activate'}
                       </button>
                       <button
                         onClick={() => handleToggleAdmin(user)}
-                        className="text-xs text-gray-600 hover:text-nfl-navy underline"
+                        className="text-xs text-gray-600 hover:text-nfl-navy underline dark:text-gray-400 dark:hover:text-sky-400"
                       >
                         {user.isAdmin ? 'Demote' : 'Promote'}
                       </button>
                       <button
                         onClick={() => handleResetPassword(user)}
-                        className="text-xs text-gray-600 hover:text-nfl-navy underline"
+                        className="text-xs text-gray-600 hover:text-nfl-navy underline dark:text-gray-400 dark:hover:text-sky-400"
                       >
                         Reset pwd
                       </button>

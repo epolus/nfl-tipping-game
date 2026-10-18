@@ -18,7 +18,7 @@ export function HistoryPage() {
   }, []);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">{error}</div>;
 
   const byWeek = tips.reduce<Record<string, Tip[]>>((acc, tip) => {
     const key = `Week ${tip.game.week} (${tip.game.season})`;
@@ -33,11 +33,13 @@ export function HistoryPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <h1 className="text-2xl font-bold">My Tip History</h1>
-        <div className="text-lg font-semibold text-nfl-navy">{totalPoints} total points</div>
+        <div className="text-lg font-semibold text-nfl-navy dark:text-sky-400">
+          {totalPoints} total points
+        </div>
       </div>
 
       {tips.length === 0 ? (
-        <p className="text-gray-500">No tips submitted yet.</p>
+        <p className="text-gray-500 dark:text-gray-400">No tips submitted yet.</p>
       ) : (
         Object.entries(byWeek).map(([weekLabel, weekTips]) => {
           const weekPoints = weekTips.reduce((s, t) => s + (t.pointsEarned ?? 0), 0);
@@ -45,9 +47,9 @@ export function HistoryPage() {
             <div key={weekLabel} className="space-y-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">{weekLabel}</h2>
-                <span className="text-sm text-gray-500">{weekPoints} pts</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{weekPoints} pts</span>
               </div>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100">
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden divide-y divide-gray-100 dark:bg-gray-900 dark:border-gray-800 dark:divide-gray-800">
                 {weekTips.map((tip) => {
                   const matchup = `${tip.game.awayTeam.nflAbbreviation} @ ${tip.game.homeTeam.nflAbbreviation}`;
                   const showRecap = isGameLocked(tip.game.kickoff);
@@ -55,7 +57,9 @@ export function HistoryPage() {
                     <div key={tip.id} className="px-4 py-3 flex items-center gap-3 flex-wrap">
                       <div className="flex-1 min-w-0">
                         <div className="font-medium">{matchup}</div>
-                        <div className="text-xs text-gray-500">{formatKickoff(tip.game.kickoff)}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {formatKickoff(tip.game.kickoff)}
+                        </div>
                       </div>
                       <div className="text-sm">
                         Picked: <span className="font-medium">{tip.pickedTeam.nflAbbreviation}</span>
@@ -64,8 +68,8 @@ export function HistoryPage() {
                         <span
                           className={`text-sm font-medium px-2 py-0.5 rounded ${
                             tip.isCorrect
-                              ? 'bg-green-100 text-green-700'
-                              : 'bg-red-100 text-red-700'
+                              ? 'bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300'
+                              : 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300'
                           }`}
                         >
                           {tip.isCorrect ? '+1 pt' : 'Miss'}
@@ -77,7 +81,7 @@ export function HistoryPage() {
                         <button
                           type="button"
                           onClick={() => setRecapGame({ id: tip.game.id, title: matchup })}
-                          className="text-sm font-medium text-nfl-navy hover:underline"
+                          className="text-sm font-medium text-nfl-navy hover:underline dark:text-sky-400"
                         >
                           ▶ Highlights
                         </button>

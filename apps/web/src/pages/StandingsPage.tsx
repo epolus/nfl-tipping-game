@@ -4,14 +4,14 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 
 function DivisionTable({ division }: { division: DivisionStanding }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
-      <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-        <h3 className="font-semibold text-sm text-nfl-navy">{division.name}</h3>
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-100 dark:bg-gray-800/60 dark:border-gray-800">
+        <h3 className="font-semibold text-sm text-nfl-navy dark:text-sky-400">{division.name}</h3>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-left text-xs text-gray-500 border-b border-gray-100">
+            <tr className="text-left text-xs text-gray-500 border-b border-gray-100 dark:text-gray-400 dark:border-gray-800">
               <th className="px-3 py-2 font-medium">Team</th>
               <th className="px-2 py-2 font-medium text-center w-8">W</th>
               <th className="px-2 py-2 font-medium text-center w-8">L</th>
@@ -21,9 +21,12 @@ function DivisionTable({ division }: { division: DivisionStanding }) {
               <th className="px-3 py-2 font-medium text-center w-10 hidden lg:table-cell">STRK</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+          <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
             {division.teams.map((team, idx) => (
-              <tr key={team.abbreviation} className={idx === 0 ? 'bg-green-50/50' : ''}>
+              <tr
+                key={team.abbreviation}
+                className={idx === 0 ? 'bg-green-50/50 dark:bg-green-950/30' : ''}
+              >
                 <td className="px-3 py-2">
                   <div className="flex items-center gap-2 min-w-0">
                     {team.logoUrl && (
@@ -35,8 +38,10 @@ function DivisionTable({ division }: { division: DivisionStanding }) {
                 <td className="px-2 py-2 text-center tabular-nums">{team.wins}</td>
                 <td className="px-2 py-2 text-center tabular-nums">{team.losses}</td>
                 <td className="px-2 py-2 text-center tabular-nums hidden sm:table-cell">{team.ties}</td>
-                <td className="px-2 py-2 text-center tabular-nums text-gray-600">{team.winPercent}</td>
-                <td className="px-2 py-2 text-center tabular-nums text-gray-600 hidden md:table-cell">
+                <td className="px-2 py-2 text-center tabular-nums text-gray-600 dark:text-gray-400">
+                  {team.winPercent}
+                </td>
+                <td className="px-2 py-2 text-center tabular-nums text-gray-600 hidden md:table-cell dark:text-gray-400">
                   {team.divisionRecord}
                 </td>
                 <td className="px-3 py-2 text-center text-xs font-medium hidden lg:table-cell">
@@ -60,7 +65,7 @@ function ConferenceSection({
 }) {
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-bold text-nfl-navy">{conference}</h2>
+      <h2 className="text-xl font-bold text-nfl-navy dark:text-sky-400">{conference}</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {divisions.map((div) => (
           <DivisionTable key={div.name} division={div} />
@@ -88,7 +93,7 @@ export function StandingsPage() {
   }, []);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <div className="text-red-600">{error}</div>;
+  if (error) return <div className="text-red-600 dark:text-red-400">{error}</div>;
 
   const afc = divisions.filter((d) => d.conference === 'AFC');
   const nfc = divisions.filter((d) => d.conference === 'NFC');
@@ -97,11 +102,13 @@ export function StandingsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold">Standings</h1>
-        {season != null && <p className="text-gray-500 mt-1">{season} Regular Season</p>}
+        {season != null && (
+          <p className="text-gray-500 mt-1 dark:text-gray-400">{season} Regular Season</p>
+        )}
       </div>
 
       {divisions.length === 0 ? (
-        <p className="text-gray-500">Standings unavailable right now.</p>
+        <p className="text-gray-500 dark:text-gray-400">Standings unavailable right now.</p>
       ) : (
         <>
           <ConferenceSection conference="AFC" divisions={afc} />

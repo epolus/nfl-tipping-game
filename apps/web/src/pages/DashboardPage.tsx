@@ -26,7 +26,7 @@ export function DashboardPage() {
   } = useWeekGames();
 
   if (!weekMeta && loading) return <LoadingSpinner />;
-  if (error && !week) return <div className="text-red-600">{error}</div>;
+  if (error && !week) return <div className="text-red-600 dark:text-red-400">{error}</div>;
   if (week == null || season == null) return <LoadingSpinner />;
 
   const tippedCount = tips.length;
@@ -36,7 +36,7 @@ export function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
         <WeekNavigator
           week={week}
           season={season}
@@ -62,7 +62,7 @@ export function DashboardPage() {
       )}
 
       {!isAdmin && tippedCount < totalGames && totalGames > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-amber-800 text-sm">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 text-amber-800 text-sm dark:bg-amber-950/40 dark:border-amber-800 dark:text-amber-200">
           You have {totalGames - tippedCount} game{totalGames - tippedCount !== 1 ? 's' : ''} left
           to tip.{' '}
           <Link to={`/tips?week=${week}`} className="font-semibold underline">
@@ -76,7 +76,9 @@ export function DashboardPage() {
         {loading ? (
           <LoadingSpinner label="Loading games..." />
         ) : games.length === 0 ? (
-          <p className="text-gray-500">No games for this week. Try another week or ask an admin to sync NFL data.</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            No games for this week. Try another week or ask an admin to sync NFL data.
+          </p>
         ) : (
           <>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -90,7 +92,10 @@ export function DashboardPage() {
               ))}
             </div>
             {!isAdmin && games.length > 4 && (
-              <Link to={`/tips?week=${week}`} className="inline-block mt-4 text-nfl-navy font-medium hover:underline">
+              <Link
+                to={`/tips?week=${week}`}
+                className="inline-block mt-4 text-nfl-navy font-medium hover:underline dark:text-sky-400"
+              >
                 View all {games.length} games →
               </Link>
             )}
@@ -103,9 +108,9 @@ export function DashboardPage() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-      <div className="text-sm text-gray-500">{label}</div>
-      <div className="text-2xl font-bold text-nfl-navy mt-1">{value}</div>
+    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <div className="text-sm text-gray-500 dark:text-gray-400">{label}</div>
+      <div className="text-2xl font-bold text-nfl-navy mt-1 dark:text-sky-400">{value}</div>
     </div>
   );
 }

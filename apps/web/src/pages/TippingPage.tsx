@@ -47,7 +47,7 @@ export function TippingPage() {
   };
 
   if (!weekMeta && loading) return <LoadingSpinner />;
-  if (error && !week) return <div className="text-red-600">{error}</div>;
+  if (error && !week) return <div className="text-red-600 dark:text-red-400">{error}</div>;
   if (week == null || season == null) return <LoadingSpinner />;
 
   const tippedCount = tips.length;
@@ -70,19 +70,23 @@ export function TippingPage() {
           onGoToCurrent={goToCurrent}
           loading={loading}
         />
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm dark:text-gray-400">
           {tippedCount}/{games.length} picks made
         </p>
       </div>
 
       {saveError && (
-        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg">{saveError}</div>
+        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg dark:bg-red-950/50 dark:text-red-300">
+          {saveError}
+        </div>
       )}
 
       {loading ? (
         <LoadingSpinner label="Loading games..." />
       ) : games.length === 0 ? (
-        <p className="text-gray-500">No games for this week. Try another week or ask an admin to sync NFL data.</p>
+        <p className="text-gray-500 dark:text-gray-400">
+          No games for this week. Try another week or ask an admin to sync NFL data.
+        </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {games.map((game) => (

@@ -1,20 +1,23 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { ThemeToggle } from './ThemeToggle';
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-    isActive ? 'bg-nfl-navy text-white' : 'text-gray-600 hover:bg-gray-100'
+    isActive
+      ? 'bg-nfl-navy text-white dark:bg-sky-600'
+      : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
   }`;
 
 export function Layout() {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 dark:bg-gray-900 dark:border-gray-800">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-nfl-navy">🏈 NFL Tips</span>
+            <span className="text-xl font-bold text-nfl-navy dark:text-sky-400">🏈 NFL Tips</span>
           </div>
           <nav className="flex flex-wrap items-center gap-1">
             <NavLink to="/" end className={navLinkClass}>
@@ -42,14 +45,17 @@ export function Layout() {
               </NavLink>
             )}
           </nav>
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-sm text-gray-600 hidden sm:inline">{user?.displayName}</span>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-sm text-gray-600 hidden sm:inline dark:text-gray-300">
+              {user?.displayName}
+            </span>
+            <ThemeToggle />
             <NavLink to="/account" className={navLinkClass}>
               Account
             </NavLink>
             <button
               onClick={() => logout()}
-              className="text-sm text-gray-500 hover:text-nfl-red transition-colors"
+              className="text-sm text-gray-500 hover:text-nfl-red transition-colors dark:text-gray-400 dark:hover:text-red-400"
             >
               Log out
             </button>
