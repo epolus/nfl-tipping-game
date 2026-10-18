@@ -15,11 +15,28 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10 dark:bg-gray-900 dark:border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-nfl-navy dark:text-sky-400">🏈 NFL Tips</span>
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-4">
+          <div className="flex items-center justify-between gap-3 md:contents">
+            <span className="text-xl font-bold text-nfl-navy shrink-0 dark:text-sky-400">
+              🏈 NFL Tips
+            </span>
+            <div className="flex items-center gap-1.5 shrink-0 md:order-last">
+              <span className="text-sm text-gray-600 hidden sm:inline dark:text-gray-300">
+                {user?.displayName}
+              </span>
+              <ThemeToggle />
+              <NavLink to="/account" className={navLinkClass}>
+                Account
+              </NavLink>
+              <button
+                onClick={() => logout()}
+                className="px-2 py-2 text-sm text-gray-500 hover:text-nfl-red transition-colors dark:text-gray-400 dark:hover:text-red-400"
+              >
+                Log out
+              </button>
+            </div>
           </div>
-          <nav className="flex flex-wrap items-center gap-1">
+          <nav className="flex flex-wrap items-center gap-1 -mx-1 md:mx-0 md:justify-center">
             <NavLink to="/" end className={navLinkClass}>
               Dashboard
             </NavLink>
@@ -45,21 +62,6 @@ export function Layout() {
               </NavLink>
             )}
           </nav>
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-sm text-gray-600 hidden sm:inline dark:text-gray-300">
-              {user?.displayName}
-            </span>
-            <ThemeToggle />
-            <NavLink to="/account" className={navLinkClass}>
-              Account
-            </NavLink>
-            <button
-              onClick={() => logout()}
-              className="text-sm text-gray-500 hover:text-nfl-red transition-colors dark:text-gray-400 dark:hover:text-red-400"
-            >
-              Log out
-            </button>
-          </div>
         </div>
       </header>
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
