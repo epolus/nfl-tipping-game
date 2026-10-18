@@ -3,8 +3,10 @@ import bcrypt from 'bcrypt';
 import { prisma } from '../lib/prisma';
 import { COOKIE_NAME, getCookieOptions, signToken } from '../lib/jwt';
 import { sanitizeUser } from '../lib/sanitize';
+import { requireAuth, AuthRequest } from '../middleware/auth';
 
 const router = Router();
+const MIN_PASSWORD_LENGTH = 8;
 
 router.post('/login', async (req, res: Response) => {
   const { email, password } = req.body;
@@ -32,6 +34,45 @@ router.post('/login', async (req, res: Response) => {
 
 router.post('/logout', (_req, res: Response) => {
   res.clearCookie(COOKIE_NAME, { path: '/' });
+  res.json({ ok: true });
+});
+
+router.post('/change-password', requireAuth, async (req: AuthRequest, res: Response) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    res.status(400).json({ error: 'Current password and new password required' });
+    return;
+  }
+
+  if (typeof newPassword !== 'string' || newPassword.length < MIN_PASSWORD_LENGTH) {
+    res.status(400).json({ error: `New password must be at least ${MIN_PASSWORD_LENGTH} characters` });
+    return;
+  }
+
+  if (currentPassword === newPassword) {
+    res.status(400).json({ error: 'New password must be different from the current password' });
+    return;
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: req.user!.userId } });
+  if (!user || !user.isActive) {
+    res.status(401).json({ error: 'User not found or inactive' });
+    return;
+  }
+
+  const valid = await bcrypt.compare(currentPassword, user.passwordHash);
+  if (!valid) {
+    res.status(401).json({ error: 'Current password is incorrect' });
+    return;
+  }
+
+  const passwordHash = await bcrypt.hash(newPassword, 12);
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { passwordHash },
+  });
+
   res.json({ ok: true });
 });
 

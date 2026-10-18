@@ -9,6 +9,7 @@ import { HistoryPage } from './pages/HistoryPage';
 import { LeaderboardPage } from './pages/LeaderboardPage';
 import { StandingsPage } from './pages/StandingsPage';
 import { AdminPage } from './pages/AdminPage';
+import { AccountPage } from './pages/AccountPage';
 
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
   const { user, loading } = useAuth();
@@ -59,6 +60,7 @@ function AppRoutes() {
         />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/standings" element={<StandingsPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route
           path="/admin"
           element={

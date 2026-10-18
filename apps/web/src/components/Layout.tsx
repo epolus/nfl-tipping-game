@@ -44,6 +44,9 @@ export function Layout() {
           </nav>
           <div className="flex items-center gap-3 shrink-0">
             <span className="text-sm text-gray-600 hidden sm:inline">{user?.displayName}</span>
+            <NavLink to="/account" className={navLinkClass}>
+              Account
+            </NavLink>
             <button
               onClick={() => logout()}
               className="text-sm text-gray-500 hover:text-nfl-red transition-colors"
