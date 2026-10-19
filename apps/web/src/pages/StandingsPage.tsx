@@ -4,7 +4,7 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 
 function DivisionTable({ division }: { division: DivisionStanding }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs dark:bg-gray-900 dark:border-gray-800">
       <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-100 dark:bg-gray-800/60 dark:border-gray-800">
         <h3 className="font-semibold text-sm text-nfl-navy dark:text-sky-400">{division.name}</h3>
       </div>

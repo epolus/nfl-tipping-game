@@ -18,13 +18,13 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
     switch (game.status) {
       case 'LIVE':
         return (
-          <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded dark:text-orange-300 dark:bg-orange-950/60">
+          <span className="text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-sm dark:text-orange-300 dark:bg-orange-950/60">
             LIVE
           </span>
         );
       case 'FINAL':
         return (
-          <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded dark:text-gray-300 dark:bg-gray-800">
+          <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-sm dark:text-gray-300 dark:bg-gray-800">
             FINAL
           </span>
         );
@@ -86,7 +86,7 @@ export function GameCard({ game, tip, onPick, saving }: GameCardProps) {
 
   return (
     <>
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden dark:bg-gray-900 dark:border-gray-800">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden dark:bg-gray-900 dark:border-gray-800">
         <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between gap-2 flex-wrap dark:bg-gray-800/60 dark:border-gray-800">
           <span className="text-xs text-gray-500 dark:text-gray-400">{formatKickoff(game.kickoff)}</span>
           {statusBadge()}

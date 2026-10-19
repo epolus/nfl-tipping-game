@@ -108,7 +108,7 @@ export function DashboardPage() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-xs dark:bg-gray-900 dark:border-gray-800">
       <div className="text-sm text-gray-500 dark:text-gray-400">{label}</div>
       <div className="text-2xl font-bold text-nfl-navy mt-1 dark:text-sky-400">{value}</div>
     </div>

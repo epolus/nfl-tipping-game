@@ -49,7 +49,7 @@ export function WeekNavigator({
             value={week}
             disabled={loading}
             onChange={(e) => onSelectWeek(parseInt(e.target.value, 10))}
-            className="px-3 py-2 border border-gray-200 rounded-lg bg-white text-sm font-semibold text-nfl-navy focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-sky-400 dark:focus:ring-sky-600"
+            className="px-3 py-2 border border-gray-200 rounded-lg bg-white text-sm font-semibold text-nfl-navy focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-sky-400 dark:focus:ring-sky-600"
           >
             {weeks.map((w) => (
               <option key={w} value={w}>

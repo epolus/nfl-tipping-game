@@ -27,7 +27,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-nfl-navy to-gray-900 px-4 relative">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-nfl-navy to-gray-900 px-4 relative">
       <div className="absolute top-4 right-4">
         <ThemeToggle className="bg-white/10 text-white hover:bg-white/20 hover:text-white dark:text-white" />
       </div>
@@ -56,7 +56,7 @@ export function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy focus:border-transparent outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy focus:border-transparent outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
               placeholder="you@example.com"
             />
           </div>
@@ -70,7 +70,7 @@ export function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy focus:border-transparent outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy focus:border-transparent outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
             />
           </div>
           <button

@@ -99,7 +99,7 @@ export function AdminPage() {
         </div>
       )}
 
-      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-xs dark:bg-gray-900 dark:border-gray-800">
         <h2 className="text-lg font-semibold mb-4">Create User</h2>
         <form onSubmit={handleCreate} className="grid gap-4 sm:grid-cols-2">
           <input
@@ -108,7 +108,7 @@ export function AdminPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <input
             type="text"
@@ -116,7 +116,7 @@ export function AdminPage() {
             placeholder="Display name"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <input
             type="password"
@@ -124,7 +124,7 @@ export function AdminPage() {
             placeholder="Temporary password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none sm:col-span-2 dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden sm:col-span-2 dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
           />
           <button
             type="submit"
@@ -138,7 +138,7 @@ export function AdminPage() {
 
       <section>
         <h2 className="text-lg font-semibold mb-4">Users ({users.length})</h2>
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs dark:bg-gray-900 dark:border-gray-800">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 text-left text-gray-500 dark:bg-gray-800/60 dark:text-gray-400">
@@ -154,7 +154,7 @@ export function AdminPage() {
                   <td className="px-4 py-3">
                     {user.displayName}
                     {user.isAdmin && (
-                      <span className="ml-1 text-xs bg-nfl-navy/10 text-nfl-navy px-1.5 py-0.5 rounded dark:bg-sky-950/50 dark:text-sky-300">
+                      <span className="ml-1 text-xs bg-nfl-navy/10 text-nfl-navy px-1.5 py-0.5 rounded-sm dark:bg-sky-950/50 dark:text-sky-300">
                         admin
                       </span>
                     )}

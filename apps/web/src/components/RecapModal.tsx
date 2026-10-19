@@ -162,10 +162,10 @@ export function RecapModal({ gameId, title, onClose }: RecapModalProps) {
                             <img
                               src={clip.thumbnailUrl}
                               alt=""
-                              className="w-14 h-8 object-cover rounded shrink-0 bg-gray-100 dark:bg-gray-800"
+                              className="w-14 h-8 object-cover rounded-sm shrink-0 bg-gray-100 dark:bg-gray-800"
                             />
                           ) : (
-                            <div className="w-14 h-8 rounded bg-gray-100 shrink-0 dark:bg-gray-800" />
+                            <div className="w-14 h-8 rounded-sm bg-gray-100 shrink-0 dark:bg-gray-800" />
                           )}
                           <div className="min-w-0 flex-1">
                             <div className="text-sm font-medium truncate">{clip.headline}</div>

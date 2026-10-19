@@ -36,7 +36,7 @@ export function LeaderboardPage() {
           No results yet — tips will appear once games finish.
         </p>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm dark:bg-gray-900 dark:border-gray-800">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xs dark:bg-gray-900 dark:border-gray-800">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50 text-left text-sm text-gray-500 dark:bg-gray-800/60 dark:text-gray-400">

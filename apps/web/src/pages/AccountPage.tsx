@@ -63,7 +63,7 @@ export function AccountPage() {
         </p>
       </div>
 
-      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-xs dark:bg-gray-900 dark:border-gray-800">
         <h2 className="text-lg font-semibold mb-4">Appearance</h2>
         <div className="grid grid-cols-3 gap-2">
           {THEME_OPTIONS.map((option) => {
@@ -87,7 +87,7 @@ export function AccountPage() {
         </div>
       </section>
 
-      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+      <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-xs dark:bg-gray-900 dark:border-gray-800">
         <h2 className="text-lg font-semibold mb-4">Change password</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
@@ -112,7 +112,7 @@ export function AccountPage() {
               autoComplete="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
             />
           </div>
 
@@ -128,7 +128,7 @@ export function AccountPage() {
               autoComplete="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
             />
             <p className="text-xs text-gray-400 mt-1">At least {MIN_PASSWORD_LENGTH} characters</p>
           </div>
@@ -145,7 +145,7 @@ export function AccountPage() {
               autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-none dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-nfl-navy outline-hidden dark:border-gray-700 dark:bg-gray-950 dark:focus:ring-sky-600"
             />
           </div>
 
