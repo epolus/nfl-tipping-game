@@ -4,11 +4,12 @@ import { prisma } from '../lib/prisma';
 import { COOKIE_NAME, getCookieOptions, signToken } from '../lib/jwt';
 import { sanitizeUser } from '../lib/sanitize';
 import { requireAuth, AuthRequest } from '../middleware/auth';
+import { loginRateLimiter } from '../middleware/rateLimit';
 
 const router = Router();
 const MIN_PASSWORD_LENGTH = 8;
 
-router.post('/login', async (req, res: Response) => {
+router.post('/login', loginRateLimiter, async (req, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
     res.status(400).json({ error: 'Email and password required' });

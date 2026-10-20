@@ -20,7 +20,11 @@ export function LoginPage() {
     try {
       await login(email, password);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'Login failed');
+      if (err instanceof ApiError && err.status === 429) {
+        setError(err.message || 'Too many login attempts. Please try again later.');
+      } else {
+        setError(err instanceof ApiError ? err.message : 'Login failed');
+      }
     } finally {
       setSubmitting(false);
     }

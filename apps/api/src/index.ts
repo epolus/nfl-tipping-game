@@ -16,6 +16,9 @@ import { sanitizeUser } from './lib/sanitize';
 const app = express();
 const PORT = parseInt(process.env.PORT ?? '3001', 10);
 
+// Behind nginx / Docker so req.ip reflects the real client for rate limiting
+app.set('trust proxy', 1);
+
 app.use(
   cors({
     origin: process.env.WEB_ORIGIN ?? 'http://localhost:5173',
