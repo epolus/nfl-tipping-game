@@ -11,6 +11,7 @@ import { LeaderboardPage } from './pages/LeaderboardPage';
 import { StandingsPage } from './pages/StandingsPage';
 import { AdminPage } from './pages/AdminPage';
 import { AccountPage } from './pages/AccountPage';
+import { InstallPrompt } from './components/InstallPrompt';
 
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
   const { user, loading } = useAuth();
@@ -82,6 +83,7 @@ export default function App() {
       <ThemeProvider>
         <AuthProvider>
           <AppRoutes />
+          <InstallPrompt />
         </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>

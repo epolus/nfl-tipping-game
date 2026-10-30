@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="NFL Tips">
+  <rect width="512" height="512" rx="96" fill="#013369"/>
+  <circle cx="256" cy="210" r="118" fill="#ffffff" opacity="0.12"/>
+  <text x="256" y="250" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-size="168" font-weight="700" fill="#ffffff">NFL</text>
+  <text x="256" y="360" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700" fill="#d50a0a" letter-spacing="8">TIPS</text>
+</svg>
