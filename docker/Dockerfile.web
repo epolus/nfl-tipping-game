@@ -1,4 +1,7 @@
-FROM node:20-alpine AS build
+# glibc, not Alpine: package-lock.json only pins @rollup/rollup-linux-x64-gnu.
+# npm ci on musl skips that optional binary and never installs the musl build
+# (https://github.com/npm/cli/issues/4828), so Vite fails to load its config.
+FROM node:20-bookworm-slim AS build
 WORKDIR /app
 
 ARG VITE_API_URL=""
