@@ -11,6 +11,7 @@ import { LeaderboardPage } from './pages/LeaderboardPage';
 import { StandingsPage } from './pages/StandingsPage';
 import { AdminPage } from './pages/AdminPage';
 import { AccountPage } from './pages/AccountPage';
+import { NewsPage } from './pages/NewsPage';
 import { InstallPrompt } from './components/InstallPrompt';
 
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
@@ -62,6 +63,7 @@ function AppRoutes() {
         />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/standings" element={<StandingsPage />} />
+        <Route path="/news" element={<NewsPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route
           path="/admin"

@@ -121,6 +121,18 @@ export interface GameRecap {
   plays: GameRecapVideo[];
 }
 
+export interface NewsArticle {
+  id: string;
+  headline: string;
+  description: string | null;
+  published: string | null;
+  byline: string | null;
+  imageUrl: string | null;
+  articleUrl: string | null;
+  type: string | null;
+  teams: string[];
+}
+
 export const api = {
   login: (email: string, password: string) =>
     request<{ user: User }>('/api/auth/login', {
@@ -187,6 +199,9 @@ export const api = {
 
   getStandings: () =>
     request<{ season: number; divisions: DivisionStanding[] }>('/api/standings'),
+
+  getNews: (limit = 25) =>
+    request<{ articles: NewsArticle[] }>(`/api/news?limit=${limit}`),
 
   getUsers: () => request<{ users: User[] }>('/api/admin/users'),
 

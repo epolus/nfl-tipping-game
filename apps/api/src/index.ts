@@ -7,6 +7,7 @@ import gamesRoutes from './routes/games';
 import tipsRoutes from './routes/tips';
 import leaderboardRoutes from './routes/leaderboard';
 import standingsRoutes from './routes/standings';
+import newsRoutes from './routes/news';
 import adminRoutes from './routes/admin';
 import { startScheduler } from './jobs/scheduler';
 import { requireAuth, AuthRequest } from './middleware/auth';
@@ -46,6 +47,7 @@ app.use('/api/games', gamesRoutes);
 app.use('/api/tips', tipsRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/standings', standingsRoutes);
+app.use('/api/news', newsRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.listen(PORT, () => {
